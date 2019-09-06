@@ -1,4 +1,4 @@
-package main
+package middleware
 
 import (
 	"fmt"
@@ -17,15 +17,15 @@ func main() {
 		engine.Use(Logger(), Recovery())
 		return engine
 	}
-	 */
+	*/
 	//engine := gin.Default()
 
 	engine := gin.New()
-	engine.Use(gin.Logger(),gin.Recovery())//添加Logger和Recovery中间件
+	engine.Use(gin.Logger(), gin.Recovery()) //添加Logger和Recovery中间件
 
-	engine.GET("/students/:id",MyLogger(), func(context *gin.Context) {
+	engine.GET("/students/:id", MyLogger(), func(context *gin.Context) {
 		id := context.Param("id")
-		context.String(http.StatusOK,id)
+		context.String(http.StatusOK, id)
 	})
 
 	engine.Run()
@@ -34,15 +34,15 @@ func main() {
 //自定义中间件
 /**
 中间件中可以添加日志、权限校验等，类似网关，在请求到达接口前处理问题。
- */
-func MyLogger() gin.HandlerFunc{
+*/
+func MyLogger() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		fmt.Println("这是自定义中间件")
 		id := context.Param("id")
 		if id == "123" {
 			context.Next()
 			return
-		}else {
+		} else {
 			context.Abort()
 			return
 		}

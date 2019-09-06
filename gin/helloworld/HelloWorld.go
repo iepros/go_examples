@@ -1,4 +1,4 @@
-package main
+package helloworld
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,10 +8,10 @@ import (
 func main() {
 	engine := gin.Default()
 	engine.GET("/", func(context *gin.Context) {
-	context.JSON(http.StatusOK,gin.H{
-		"message":"Hello world!",
+		context.JSON(http.StatusOK, gin.H{
+			"message": "Hello world!",
+		})
 	})
-})
 
 	engine.Run(":8080")
 }

@@ -5,6 +5,14 @@ import (
 	"net/http"
 )
 
+/**
+分组路由，顾名思义就是把路由（请求链接）进行分组
+如：/v1/user/1
+	/v1/user
+
+	/v2/user/1
+	/v2/user
+*/
 func main() {
 	router := gin.Default()
 	group := router.Group("/v1")

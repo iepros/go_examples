@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"go_examples/gin/httprequest/function"
 )
 
 /**
@@ -15,17 +15,20 @@ import (
 */
 func main() {
 	router := gin.Default()
+	//创建一个组，并设置组的根路由
 	group := router.Group("/v1")
 	{
-		group.GET("/get/:name", loginPage)
+		//将路由的处理函数集中封装成函数
+		group.GET("/student/:id", function.GetStudent)
 	}
 
-	router.Run()
-}
-
-func loginPage(context *gin.Context) {
-	name := context.Param("name")
-	context.JSON(http.StatusOK, gin.H{
-		"name": name,
+	//由源码可知，后面的函数是中间件函数
+	routerGroup := router.Group("/v2", func(context *gin.Context) {
+		//在此可以添加中间件，如：日志、权限校验等，类似spring AOP 中的前置事件
 	})
+
+	routerGroup.GET("/student/:id", function.GetStudent)
+	routerGroup.DELETE("/student/:id", function.DeleteStudent)
+
+	router.Run()
 }

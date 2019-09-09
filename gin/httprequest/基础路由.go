@@ -6,6 +6,9 @@ import (
 	"net/http"
 )
 
+/**
+应该严格按照restful风格设计请求接口路由
+*/
 func main() {
 	//创建一个新的引擎，不使用默认的 Default()
 	//由源码可知：默认的引擎比新建的引擎多了两个中间件：Logger、Recovery
@@ -44,6 +47,7 @@ func main() {
 		})
 	})
 
+	//保存用户信息
 	engine.POST("/user", func(context *gin.Context) {
 		//获取表单(body)参数
 		name := context.PostForm("name")
@@ -55,10 +59,19 @@ func main() {
 		})
 	})
 
+	//修改用户信息
 	engine.PUT("/user", func(context *gin.Context) {
+		//获取表单(body)参数
+		name := context.PostForm("name")
+		age := context.PostForm("age")
 
+		context.JSON(http.StatusOK, gin.H{
+			"name": name,
+			"age":  age,
+		})
 	})
 
+	//删除用户
 	engine.DELETE("/user/:id", func(context *gin.Context) {
 		id := context.Param("id")
 		context.JSON(http.StatusOK, gin.H{

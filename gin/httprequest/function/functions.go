@@ -15,3 +15,7 @@ func GetStudent(context *gin.Context) {
 func DeleteStudent(ctx *gin.Context) {
 	//处理删除逻辑
 }
+
+func MiddleWare(ctx *gin.Context) {
+	//中间件
+}

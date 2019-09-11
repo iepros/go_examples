@@ -16,6 +16,13 @@ import (
 func main() {
 	router := gin.Default()
 	//创建一个组，并设置组的根路由
+	/*
+		Group(relativePath string, handlers ...HandlerFunc):查看源码知道该方法有两个参数
+			参数一：路由
+			参数二：中间件函数，处理在请求到达接口前的业务，如：鉴权、日志等
+					也可以使用router.Use(function.MiddleWare)添加中间件，下一个例子说明中间件的使用
+	*/
+	router.Use(function.MiddleWare)
 	group := router.Group("/v1")
 	{
 		//将路由的处理函数集中封装成函数
